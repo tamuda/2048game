@@ -1,8 +1,9 @@
+import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class Main {
     private static int[][] board = new int[4][4];
-    int validMove = 0;
+    static int validMove = 0;
     //game constructor
     public Main() {
         initializeBoard();
@@ -18,51 +19,51 @@ public class Main {
         while (!game.checkFull(board)){
             switch (move) {
                 case 'w':
+                case 'W':
                     game.moveUp();
                     break;
                 case 's':
+                case 'S':
                     game.moveDown();
                     break;
                 case 'a':
+                case 'A':
                     game.moveLeft();
                     break;
                 case 'd':
+                case 'D':
                     game.moveRight();
                     break;
                 case 'q':
+                case 'Q':
                     System.out.println("are you sure you want to quit? type yes or no");
                     String quitResponse = input.nextLine();
                     if (quitResponse.equalsIgnoreCase("yes")) {
                         game.quitGame();
-                        System.out.println("\n");
-                        System.out.println("\n");
-                        System.out.println("\n");
-                        System.out.println("\n");
+                        clearConsole();
                     }
                     else if (quitResponse.equalsIgnoreCase("no")) {
-                        System.out.println("\n");
-                        System.out.println("\n");
-                        System.out.println("\n");
-                        System.out.println("\n");
+                        clearConsole();
                         break;
                     }
                 case 'r':
+                case 'R':
                     System.out.println("are you sure you want to restart? type yes or no");
                     String restartResponse = input.nextLine();
                     if (restartResponse.equalsIgnoreCase("yes")) {
-                        System.out.println("\n");
-                        System.out.println("\n");
-                        System.out.println("\n");
-                        System.out.println("\n");
+                        clearConsole();
                         game.restartGame();
                     }
                     else if (restartResponse.equalsIgnoreCase("no")) {
-                        System.out.println("\n");
-                        System.out.println("\n");
-                        System.out.println("\n");
-                        System.out.println("\n");
+                      clearConsole();
                         break;
                     }
+                default:
+                    clearConsole();
+                    System.out.println("Invalid move");
+                    System.out.println();
+                    System.out.println();
+                    break;
             }
             printBoard(board);
             move = input.nextLine().charAt(0);
@@ -93,6 +94,9 @@ public class Main {
             }
             System.out.println();
         }
+        System.out.println("Total: "+countTotal());
+        System.out.println("Valid Moves: "+ validMove);
+
     }
 
     //change board values
@@ -148,10 +152,8 @@ public class Main {
         }
         //Add a new number
         addNumber();
-        System.out.println("\n");
-        System.out.println("\n");
-        System.out.println("\n");
-        System.out.println("That was a valid move");
+        clearConsole();
+        System.out.println("w: That was a valid move");
         System.out.println("\n");
         validMove++;
     }
@@ -183,10 +185,8 @@ public class Main {
         }
         //Add a new number
         addNumber();
-        System.out.println("\n");
-        System.out.println("\n");
-        System.out.println("\n");
-        System.out.println("That was a valid move");
+        clearConsole();
+        System.out.println("d: That was a valid move");
         System.out.println("\n");
         validMove++;
     }
@@ -220,10 +220,8 @@ public class Main {
         }
         //Add a new number
         addNumber();
-        System.out.println("\n");
-        System.out.println("\n");
-        System.out.println("\n");
-        System.out.println("That was a valid move");
+        clearConsole();
+        System.out.println("a: That was a valid move");
         System.out.println("\n");
         validMove++;
     }
@@ -255,10 +253,8 @@ public class Main {
         }
         //Add a new number
         addNumber();
-        System.out.println("\n");
-        System.out.println("\n");
-        System.out.println("\n");
-        System.out.println("That was a valid move");
+        clearConsole();
+        System.out.println("d: That was a valid move");
         System.out.println("\n");
         validMove++;
     }
@@ -289,5 +285,21 @@ public class Main {
     public void quitGame() {
         System.exit(0);
     }
+
+    //count total number on board
+    public static int countTotal(){
+        int total = 0;
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                total += board[i][j];
+            }
+        }
+        return total;
+    }
+    //clear the console with empty lines
+    public static void clearConsole() {
+        for (int i = 0; i < 5; ++i) System.out.println();
+    }
+
 
 }
